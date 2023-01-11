@@ -1,9 +1,6 @@
-'use strict';
-
-let money, date;
-
-function start() {
-    money = +prompt("Ваш бюджет на месяц?", "");
+// Write a message to the console.
+// console.log('hello world!');
+let money = +prompt("Ваш бюджет на месяц?", ""),
     date = prompt("Введите дату в формате YYYY-MM-DD", "1985-06-22");
 
     while(isNaN(money) || money == "" || money == null) {
