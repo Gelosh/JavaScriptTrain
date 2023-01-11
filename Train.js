@@ -1,53 +1,41 @@
 // Write a message to the console.
 // console.log('hello world!');
-// let money = +prompt("Ваш бюджет на месяц?", ""),
-//     date = prompt("Введите дату в формате YYYY-MM-DD", "1985-06-22");
-
-// let appData = {
-//     butget: money,
-//     timeData: date,
-//     expenses: {},
-//     optionalExpenses: {},
-//     income: [],
-//     savings: false
-// }
-
-// let exp1 = prompt("Введите обязательную статью расходов в этом месяце", "food"),
-//     howMuch1 = prompt("Во сколько обойдется?", " "),
-//     exp2 = prompt("Введите обязательную статью расходов в этом месяце", "relax"),
-//     howMuch2 = prompt("Во сколько обойдется?", " ");
-
-// console.log(exp1);
-// console.log(exp2);
-
-// appData.expenses.exp1 = howMuch1;
-// appData.expenses.exp2 = howMuch2;
-
-// console.log(appData.expenses.exp1);
-// console.log(exp1);
-
-// alert(appData.butget / 30);
-
-let money = prompt("Ваш бюджет на месяц?", ''),
-	time = prompt('Введите дату в формате YYYY-MM-DD', '');
+let money = +prompt("Ваш бюджет на месяц?", ""),
+    date = prompt("Введите дату в формате YYYY-MM-DD", "1985-06-22");
 
 let appData = {
-	budget: money,
-	expenses: {},
-	optionalExpenses: {},
-	income: [],
-	timeData: time,
-	savings: false
-};
+    butget: money,
+    timeData: date,
+    expenses: {},
+    optionalExpenses: {},
+    income: [],
+    savings: false
+}
 
-let a1 = prompt("Введите обязательную статью расходов в этом месяце", ''),
-	a2 = prompt("Во сколько обойдется?", ''),
-	a3 = prompt("Введите обязательную статью расходов в этом месяце", ''),
-	a4 = prompt("Во сколько обойдется?", '');
+for(let i=0; i<2; i++) {
+    let exp = prompt("Введите обязательную статью расходов в этом месяце", "food"),
+        howMuch = +prompt("Во сколько обойдется?", " ");
+        if ((typeof(exp)) === "string" && (typeof(exp) != null) && (typeof(howMuch) != null) 
+            && exp!='' && howMuch!='' && exp.length < 50) {
+            console.log("done")    ;
+            appData.expenses[exp] = howMuch;
+        } else {
+            alert("Заполните пожалуйста все поля!");
+            i--;
+        }    
+}
 
-appData.expenses.a1 = a2;
-appData.expenses.a3 = a4;
+appData.moneyPerDay = appData.butget / 30;
 
-console.log(appData.expenses);
+alert("Ежедневный бютжет: " + appData.moneyPerDay);
 
-alert(appData.budget / 30);
+if (appData.moneyPerDay < 100) {
+    console.log("Минимальный уровень достатка");
+} else if (appData.moneyPerDay>100 && appData.moneyPerDay < 2000) {
+    console.log("Средний уровень достатка");
+} else if (appData.moneyPerDay > 2000) {
+    console.log("Высокий уровень достатка");
+} else {
+    console.log("Error");
+}
+
