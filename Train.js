@@ -6,7 +6,7 @@ let money = +prompt("Ваш бюджет на месяц?", ""),
     while(isNaN(money) || money == "" || money == null) {
         money = +prompt("Ваш бюджет на месяц?", "");
     }
-}
+
 start();
 
 let appData = {
