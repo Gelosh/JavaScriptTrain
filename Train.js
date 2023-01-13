@@ -1,5 +1,5 @@
-// Write a message to the console.
-// console.log('hello world!');
+'use strict'
+
 let money = +prompt("Ваш бюджет на месяц?", ""),
     date = prompt("Введите дату в формате YYYY-MM-DD", "1985-06-22");
 
