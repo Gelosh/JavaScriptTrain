@@ -23,15 +23,53 @@ let btn = document.getElementById("start"),
     dayValue = document.querySelector('.day-value');
 
 let money, date;
-function start() {   
-    money = +prompt("Ваш бюджет на месяц?", ""),
-    date = prompt("Введите дату в формате YYYY-MM-DD", "1985-06-22");
+
+btn.addEventListener('click', function() {
+    date = prompt("Введите дату в формате YYYY-MM-DD", "1985-06-22"),
+    money = +prompt("Ваш бюджет на месяц?", "");
 
     while(isNaN(money) || money == "" || money == null) {
         money = +prompt("Ваш бюджет на месяц?", "");
     }
-}
-start();
+    appData.butget = money;
+    appData.timeData = date;
+    budgetValue.textContent = money.toFixed();
+    yearValue.value = new Date(Date.parse(date)).getFullYear();
+    monthValue.value =new Date(Date.parse(date)).getMonth()+1;
+    dayValue.value = new Date(Date.parse(date)).getDate();
+});
+expensesBtn.addEventListener('click', function() {
+    let sum = 0;
+
+    for(let i=0; i<inputPole.length; i++) {
+        let exp = inputPole[i].value,
+            howMuch = inputPole[++i].value;
+            if ((typeof(exp)) === "string" && (typeof(exp) != null) && (typeof(howMuch) != null) 
+                && exp!='' && howMuch!='' && exp.length < 50) {
+                console.log("done")    ;
+                appData.expenses[exp] = howMuch;
+                sum += +howMuch;
+            } else {
+                alert("Заполните пожалуйста все поля!");
+                i--;
+            }    
+    }
+    expensesValue.textContent = sum;
+});
+
+btnConfirm.addEventListener('click', function() {
+    for(let i=0; i<fieldOption.length; i++) {
+        let optexp = fieldOption[i].value;
+            if ((typeof(optexp)) === "string" && (typeof(optexp) != null)) {
+                appData.optionalExpenses[i+1] = optexp;
+            } else {
+                alert("Заполните пожалуйста все поля!");
+                i--;
+            } 
+            optionalExpensesValue.textContent += appData.optionalExpenses[i]+ ', ';
+    }
+    
+});
 
 let appData = {
     butget: money,
@@ -40,20 +78,7 @@ let appData = {
     optionalExpenses: {},
     income: [],
     savings: false,
-    chooseExpences: function() {
-        for(let i=0; i<2; i++) {
-            let exp = prompt("Введите обязательную статью расходов в этом месяце", "food"),
-                howMuch = +prompt("Во сколько обойдется?", " ");
-                if ((typeof(exp)) === "string" && (typeof(exp) != null) && (typeof(howMuch) != null) 
-                    && exp!='' && howMuch!='' && exp.length < 50) {
-                    console.log("done")    ;
-                    appData.expenses[exp] = howMuch;
-                } else {
-                    alert("Заполните пожалуйста все поля!");
-                    i--;
-                }    
-        }
-    },
+
     detectDayBudget: function() {
         appData.moneyPerDay = (appData.butget / 30).toFixed();
         alert("Ежедневный бютжет: " + appData.moneyPerDay);
